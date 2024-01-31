@@ -1,7 +1,25 @@
+"use client";
 import Image from "next/image";
 import styles from "./page.module.css";
+import { useState, useEffect } from "react";
 
-export default function Home() {
+interface Data {
+  id: number;
+  title: string;
+}
+
+const Home = () => {
+
+  const [data, setData] = useState<Data[]>([]);
+
+  useEffect(() => {
+    fetch('http://localhost:3000/api/test')
+        .then(response => response.json())
+        .then(data => setData(data))
+        .catch(error => console.error('Error fetching data:', error));
+  }, []);
+  
+
   return (
     <main className={styles.main}>
       <div className={styles.description}>
@@ -9,6 +27,15 @@ export default function Home() {
           Get started by editing&nbsp;
           <code className={styles.code}>src/app/page.tsx</code>
         </p>
+
+        <div>
+        <h1>Data from API:</h1>
+        <ul>
+          {data.map(item => (
+              <li key={item.id}>{item.title}</li>
+          ))}
+        </ul>
+      </div>
         <div>
           <a
             href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
@@ -93,3 +120,5 @@ export default function Home() {
     </main>
   );
 }
+
+export default Home;

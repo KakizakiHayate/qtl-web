@@ -1,15 +1,24 @@
-import { NextResponse } from "next/server";
+import mysql from 'mysql2/promise';
+import { NextRequest, NextResponse } from 'next/server';
 
-// ユーザーリストを取得するAPI
-export function GET() {
-  return NextResponse.json([
-    {
-      id: 1,
-      name: "山田 太郎",
-    },
-    {
-      id: 2,
-      name: "佐藤 次郎",
-    },
-  ]);
+// データベース接続設定
+const connection = await mysql.createConnection({
+    host: '',
+    user: '',
+    password: '',
+    database: '',
+    port: 0
+});
+
+export async function GET() {
+    try {
+        // データベースクエリの実行
+        const [rows, fields] = await connection.execute('SELECT * FROM test_qtl');
+
+        // クエリ結果のレスポンス
+        return NextResponse.json(rows);
+    } catch (error) {
+        // エラー処理
+        return NextResponse.json({ message: 'Database query failed', error });
+    }
 }
