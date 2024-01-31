@@ -35,6 +35,25 @@ const Home = () => {
               <li key={item.id}>{item.title}</li>
           ))}
         </ul>
+        <p>ここまでがデータベースのデータを表示しています</p>
+      </div>
+        <div>
+        <h1>Data from API:</h1>
+        <ul>
+          {data.map(item => (
+              <li key={item.id}>{item.title}</li>
+          ))}
+        </ul>
+        <p>ここまでがデータベースのデータを表示しています</p>
+      </div>
+        <div>
+        <h1>Data from API:</h1>
+        <ul>
+          {data.map(item => (
+              <li key={item.id}>{item.title}</li>
+          ))}
+        </ul>
+        <p>ここまでがデータベースのデータを表示しています</p>
       </div>
         <div>
           <a
